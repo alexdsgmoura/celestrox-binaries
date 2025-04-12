@@ -63,12 +63,21 @@ case "$COMMAND" in
     DOWNLOAD_URL="${DOWNLOAD_URL_BASE}/${BIN_NAME}"
     echo "Baixando binário de: $DOWNLOAD_URL"
     
-    # Baixa o binário para o diretório definido
-    # Você pode utilizar 'wget' ou 'curl'. Neste exemplo, usamos wget.
-    wget -O "${INSTALL_DIR}/${SERVICE_NAME}" "$DOWNLOAD_URL" || {
-      echo "Erro ao baixar o binário."
+    # Baixa o binário utilizando wget ou curl, dependendo do que estiver disponível
+    if command -v wget >/dev/null 2>&1; then
+      wget -O "${INSTALL_DIR}/${SERVICE_NAME}" "$DOWNLOAD_URL" || {
+        echo "Erro ao baixar o binário com wget."
+        exit 1
+      }
+    elif command -v curl >/dev/null 2>&1; then
+      curl -fsSL "$DOWNLOAD_URL" -o "${INSTALL_DIR}/${SERVICE_NAME}" || {
+        echo "Erro ao baixar o binário com curl."
+        exit 1
+      }
+    else
+      echo "Nenhum dos comandos wget ou curl está instalado!"
       exit 1
-    }
+    fi
 
     # Concede permissão de execução ao binário (755 - leitura e execução para todos, escrita para o dono)
     chmod 755 "${INSTALL_DIR}/${SERVICE_NAME}"
