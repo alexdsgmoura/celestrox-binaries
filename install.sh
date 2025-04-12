@@ -100,34 +100,34 @@ WantedBy=multi-user.target
 EOF
 
     # Recarrega o systemd para reconhecer o novo serviço
-    systemctl daemon-reload
+    systemctl daemon-reload > /dev/null
 
     # Habilita o serviço para iniciar com o sistema
-    systemctl enable "$SERVICE_NAME"
+    systemctl enable "$SERVICE_NAME" > /dev/null
 
     # Inicia o serviço imediatamente
-    systemctl start "$SERVICE_NAME"
+    systemctl start "$SERVICE_NAME" > /dev/null
 
     echo "Instalação concluída! Use '$0 start|stop|restart|status' para gerenciar o serviço."
     ;;
 
   start)
-    systemctl start "$SERVICE_NAME"
+    systemctl start "$SERVICE_NAME" > /dev/null
     echo "Serviço ${SERVICE_NAME} iniciado."
     ;;
 
   stop)
-    systemctl stop "$SERVICE_NAME"
+    systemctl stop "$SERVICE_NAME" > /dev/null
     echo "Serviço ${SERVICE_NAME} parado."
     ;;
 
   restart)
-    systemctl restart "$SERVICE_NAME"
+    systemctl restart "$SERVICE_NAME" > /dev/null
     echo "Serviço ${SERVICE_NAME} reiniciado."
     ;;
 
   status)
-    systemctl status "$SERVICE_NAME"
+    systemctl status "$SERVICE_NAME" > /dev/null
     ;;
 
   *)
