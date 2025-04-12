@@ -1,12 +1,10 @@
 #!/bin/bash
 set -e
 
-# Verifica se é root
 if [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
-# Função de uso
 usage() {
   exit 1
 }
@@ -16,7 +14,6 @@ SERVICE_NAME="celestrox"
 SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}.service"
 DOWNLOAD_URL_BASE="https://raw.githubusercontent.com/alexdsgmoura/celestrox-binaries/refs/heads/main"
 
-# Detecta a arquitetura e define o nome do binário
 detect_arch() {
   ARCH_RAW=$(uname -m)
   case "$ARCH_RAW" in
@@ -39,7 +36,6 @@ detect_arch() {
   BIN_NAME="celestrox_${ARCH}"
 }
 
-# Verifica se um comando foi passado
 if [ $# -eq 0 ]; then
   usage
 fi
@@ -62,7 +58,6 @@ case "$COMMAND" in
 
     chmod 755 "${INSTALL_DIR}/${SERVICE_NAME}" > /dev/null 2>&1
 
-    # Cria o arquivo de serviço do systemd
     cat <<EOF > "$SERVICE_FILE"
 [Unit]
 Description=Serviço Celestrox - Recursos Extras do Celestrox
