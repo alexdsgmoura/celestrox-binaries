@@ -80,7 +80,7 @@ case "$COMMAND" in
 
     cat <<EOF > "$SERVICE_FILE"
 [Unit]
-Description=Serviço Celestrox - Recursos Extras do Celestrox
+Description=Extra features of Celestrox system
 After=network.target
 
 [Service]
